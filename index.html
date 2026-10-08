@@ -1,0 +1,417 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>¡Corre, pero con paciencia!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Nunito:wght@500;700;800;900&family=Gochi+Hand&display=swap">
+<style>
+/* Layout: guion de bolsillo para celular — carpa de circo arriba, nav de escenas pegajosa, globos de diálogo por payasa, cronómetro fijo abajo */
+:root{
+  color-scheme: light;
+  --carpa-a:#ff6b6b; --carpa-b:#fff4e6;
+  --leiry:#ff8a3d; --leiry-soft:#ffe6d3; --leiry-ink:#8a3a06;
+  --amanda:#1fb5a8; --amanda-soft:#d4f5f1; --amanda-ink:#0b5a53;
+  --ninos:#ffc93c; --ninos-soft:#fff3c8; --ninos-ink:#7a5600;
+  --ambas:#9b7bff; --ambas-soft:#ece6ff; --ambas-ink:#45289e;
+  --paper:#fffaf2; --ink:#2d2340; --muted:#7a6f8c; --line:#efe3d2;
+  --display:"Bagel Fat One", "Arial Black", system-ui, sans-serif;
+  --body:"Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --hand:"Gochi Hand", "Comic Sans MS", cursive;
+  --fs:17px;
+}
+html{background:var(--paper)}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:var(--fs);line-height:1.5;-webkit-text-size-adjust:100%}
+*{box-sizing:border-box}
+
+/* ---------- carpa ---------- */
+.tent{position:relative;background:repeating-linear-gradient(90deg,var(--carpa-a) 0 34px,var(--carpa-b) 34px 68px);padding:34px 16px 70px;text-align:center;overflow:hidden}
+.tent::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:46px;background:
+ radial-gradient(circle at 23px 0,transparent 22px,var(--paper) 23px) 0 0/46px 46px repeat-x}
+.bunting{position:absolute;top:0;left:0;right:0;height:22px;display:flex;justify-content:space-around}
+.bunting i{width:0;height:0;border-left:11px solid transparent;border-right:11px solid transparent;border-top:20px solid var(--ninos)}
+.bunting i:nth-child(3n+2){border-top-color:var(--amanda)}
+.bunting i:nth-child(3n){border-top-color:var(--ambas)}
+.ticket{position:relative;z-index:1;display:inline-block;background:var(--paper);border:3px solid var(--ink);border-radius:22px;padding:18px 18px 16px;max-width:420px;width:100%;box-shadow:6px 6px 0 var(--ink);transform:rotate(-1.2deg)}
+.eyebrow{font-weight:900;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(2rem,10vw,2.8rem);line-height:.98;margin:.25em 0 .2em;color:var(--carpa-a);text-wrap:balance;text-shadow:3px 3px 0 var(--ninos)}
+h1 span{display:block;color:var(--amanda);text-shadow:3px 3px 0 var(--ambas-soft)}
+.duo{display:flex;justify-content:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:.85rem;padding:5px 12px 5px 6px;border-radius:999px;border:2px solid var(--ink)}
+.pill.l{background:var(--leiry-soft)} .pill.a{background:var(--amanda-soft)}
+.nose{width:18px;height:18px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff9 0 3px,transparent 4px),var(--carpa-a);border:2px solid var(--ink)}
+.pill.a .nose{background:radial-gradient(circle at 35% 35%,#fff9 0 3px,transparent 4px),var(--amanda)}
+.meta-row{display:flex;justify-content:center;gap:14px;margin-top:12px;font-weight:800;font-size:.85rem;color:var(--muted);flex-wrap:wrap}
+
+main{max-width:560px;margin:0 auto;padding-inline:16px;padding-block:6px 120px;display:flex;flex-direction:column;gap:22px}
+
+/* ---------- versículo ---------- */
+.verse{position:relative;background:var(--ambas-soft);border:3px solid var(--ink);border-radius:20px;padding:18px 18px 14px 18px;box-shadow:4px 4px 0 var(--ink)}
+.verse .tag{position:absolute;top:-14px;left:16px;background:var(--ambas);color:#fff;font-family:var(--display);font-size:.95rem;padding:2px 12px;border-radius:999px;border:2px solid var(--ink)}
+.verse p{font-family:var(--hand);font-size:1.45rem;line-height:1.25;margin:.2em 0 .1em;color:var(--ambas-ink)}
+.verse cite{font-style:normal;font-weight:900;font-size:.85rem;letter-spacing:.06em;color:var(--ambas-ink)}
+
+/* ---------- tarjetas de control ---------- */
+.panel{background:#fff;border:2px solid var(--line);border-radius:18px;padding:14px 14px 12px}
+.panel h2{font-family:var(--display);font-weight:400;font-size:1.25rem;margin:0 0 8px;display:flex;align-items:center;gap:8px}
+.panel h2 small{font-family:var(--body);font-weight:800;font-size:.75rem;color:var(--muted);margin-left:auto}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font:inherit;font-weight:800;font-size:.85rem;border:2px solid var(--ink);background:#fff;color:var(--ink);padding:6px 12px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:#fff}
+.chip.l[aria-pressed="true"]{background:var(--leiry);color:#fff}
+.chip.a[aria-pressed="true"]{background:var(--amanda);color:#fff}
+.chip:focus-visible,.navchip:focus-visible,.tbtn:focus-visible,.prop input:focus-visible+span{outline:3px solid var(--ambas);outline-offset:2px}
+.sizer{display:flex;gap:8px;align-items:center;margin-top:10px;font-weight:800;font-size:.85rem;color:var(--muted)}
+
+.props{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.prop label{display:flex;gap:8px;align-items:flex-start;font-weight:700;font-size:.88rem;line-height:1.3;cursor:pointer;padding:6px 4px;border-radius:10px}
+.prop input{appearance:none;flex:none;width:22px;height:22px;border:2.5px solid var(--ink);border-radius:7px;margin:0;background:#fff;display:grid;place-items:center;cursor:pointer}
+.prop input:checked{background:var(--ninos)}
+.prop input:checked::after{content:"";width:6px;height:11px;border:solid var(--ink);border-width:0 3px 3px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.prop input:checked ~ span{text-decoration:line-through;color:var(--muted)}
+.bar{height:10px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:10px}
+.bar b{display:block;height:100%;width:0;background:repeating-linear-gradient(45deg,var(--ninos) 0 8px,var(--leiry) 8px 16px);transition:width .3s}
+
+/* ---------- nav escenas ---------- */
+.scenenav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);margin-inline:-16px;padding:10px 16px;border-bottom:2px dashed var(--line);display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.scenenav::-webkit-scrollbar{display:none}
+.navchip{flex:none;font-family:var(--display);font-size:1rem;width:40px;height:40px;border-radius:50%;border:2.5px solid var(--ink);display:grid;place-items:center;text-decoration:none;color:var(--ink);background:#fff}
+.navchip:nth-child(4n+1){background:var(--leiry-soft)}
+.navchip:nth-child(4n+2){background:var(--amanda-soft)}
+.navchip:nth-child(4n+3){background:var(--ninos-soft)}
+.navchip:nth-child(4n){background:var(--ambas-soft)}
+.navchip.on{background:var(--ink);color:#fff}
+
+/* ---------- escena ---------- */
+.scene{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 72px);display:flex;flex-direction:column;gap:10px}
+.shead{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:18px;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);background:var(--c-soft)}
+.num{flex:none;width:52px;height:52px;border-radius:50%;background:var(--c);color:#fff;border:3px solid var(--ink);display:grid;place-items:center;font-family:var(--display);font-size:1.5rem;text-shadow:2px 2px 0 var(--ink)}
+.shead h2{font-family:var(--display);font-weight:400;font-size:1.25rem;line-height:1.1;margin:0;text-wrap:balance}
+.shead .t{display:inline-block;margin-top:4px;font-weight:900;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:#fff;border:2px solid var(--ink);border-radius:999px;padding:1px 8px}
+.s0{--c:var(--leiry);--c-soft:var(--leiry-soft)}
+.s1{--c:var(--amanda);--c-soft:var(--amanda-soft)}
+.s2{--c:var(--ninos);--c-soft:var(--ninos-soft)}
+.s3{--c:var(--ambas);--c-soft:var(--ambas-soft)}
+.s4{--c:var(--carpa-a);--c-soft:#ffe1e1}
+
+.lines{display:flex;flex-direction:column;gap:8px}
+.ln{max-width:88%;display:flex;flex-direction:column;transition:opacity .2s}
+.ln .who{font-weight:900;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;margin:0 10px 2px}
+.ln .b{padding:9px 14px;border-radius:18px;border:2px solid var(--ink);font-weight:600}
+.ln.L{align-self:flex-start}.ln.L .b{background:var(--leiry-soft);border-bottom-left-radius:4px}.ln.L .who{color:var(--leiry-ink)}
+.ln.A{align-self:flex-end;text-align:left}.ln.A .who{align-self:flex-end;color:var(--amanda-ink)}.ln.A .b{background:var(--amanda-soft);border-bottom-right-radius:4px}
+.ln.N{align-self:center;max-width:94%}.ln.N .who{align-self:center;color:var(--ninos-ink)}.ln.N .b{background:var(--ninos);font-weight:900;text-align:center;border-radius:14px;transform:rotate(-1deg)}
+.ln.B{align-self:center;max-width:94%}.ln.B .who{align-self:center;color:var(--ambas-ink)}.ln.B .b{background:var(--ambas-soft);font-weight:800;text-align:center}
+.ln .b em{font-family:var(--hand);font-style:normal;font-size:1.05em;color:var(--muted)}
+.dir{align-self:stretch;font-family:var(--hand);font-size:1.12rem;line-height:1.3;color:var(--muted);background:repeating-linear-gradient(transparent 0 26px,var(--line) 26px 27px);border-left:4px dotted var(--c);padding:4px 10px 4px 12px;transition:opacity .2s}
+body.f-L .ln:not(.L):not(.B),body.f-A .ln:not(.A):not(.B){opacity:.32}
+body.f-L .dir,body.f-A .dir{opacity:.6}
+body.f-L .ln.L .b,body.f-A .ln.A .b{box-shadow:3px 3px 0 var(--ink)}
+.tip{font-weight:700;font-size:.85rem;background:#fff;border:2px dashed var(--c);border-radius:14px;padding:8px 12px;color:var(--ink)}
+.tip strong{color:var(--ink)}
+
+.fin{text-align:center;padding:10px 0 0}
+.fin b{font-family:var(--display);font-weight:400;font-size:2.4rem;color:var(--carpa-a);text-shadow:3px 3px 0 var(--ninos)}
+.fin p{margin:.2em 0 0;font-weight:700;color:var(--muted)}
+
+/* ---------- cronómetro ---------- */
+.timer{position:fixed;left:0;right:0;bottom:0;z-index:10;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:var(--ink);color:#fff;display:flex;align-items:center;gap:10px}
+.clock{font-family:var(--display);font-size:1.7rem;font-variant-numeric:tabular-nums;min-width:4.2ch}
+.tinfo{flex:1;min-width:0;font-size:.75rem;font-weight:800;line-height:1.25;color:#d9d2ea}
+.tinfo span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff;font-size:.85rem}
+.tprog{position:absolute;top:0;left:0;height:4px;background:var(--ninos);width:0}
+.tbtn{flex:none;font:inherit;font-weight:900;font-size:.85rem;border:2px solid #fff;border-radius:999px;padding:8px 14px;background:var(--leiry);color:#fff;cursor:pointer}
+.tbtn.ghost{background:transparent;padding:8px 11px}
+
+@media (prefers-reduced-motion:no-preference){
+  .ticket{animation:pop .7s cubic-bezier(.3,1.6,.5,1) both}
+  @keyframes pop{from{transform:rotate(-1.2deg) scale(.6);opacity:.4}to{transform:rotate(-1.2deg) scale(1);opacity:1}}
+  .nose{animation:honk 2.4s ease-in-out infinite}
+  .pill.a .nose{animation-delay:1.2s}
+  @keyframes honk{0%,80%,100%{transform:scale(1)}88%{transform:scale(1.35)}}
+}
+@media (max-width:380px){.props{grid-template-columns:1fr}}
+</style>
+
+<header class="tent">
+  <div class="bunting" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="ticket">
+    <div class="eyebrow">Día de la Biblia · Iglesia Gosén · La carrera de la Fe</div>
+    <h1>¡Corre,<span>pero con paciencia!</span></h1>
+    <div class="duo">
+      <span class="pill l"><i class="nose" aria-hidden="true"></i>Leiry</span>
+      <span class="pill a"><i class="nose" aria-hidden="true"></i>Amanda</span>
+    </div>
+    <div class="meta-row"><span>Show de payasas</span><span>13 escenas</span><span>≈ 20 min</span></div>
+  </div>
+</header>
+
+<main>
+  <section class="verse" aria-label="Versículo clave">
+    <span class="tag">Versículo clave</span>
+    <p>“Corramos con paciencia la carrera que tenemos por delante”</p>
+    <cite>HEBREOS 12:1</cite>
+  </section>
+
+  <section class="panel" aria-label="Modo ensayo">
+    <h2>Modo ensayo <small>resalta tus líneas</small></h2>
+    <div class="chips" role="group" aria-label="Resaltar personaje">
+      <button class="chip" id="f-all" data-f="" aria-pressed="true">Todas</button>
+      <button class="chip l" id="f-L" data-f="L" aria-pressed="false">Soy Leiry</button>
+      <button class="chip a" id="f-A" data-f="A" aria-pressed="false">Soy Amanda</button>
+    </div>
+    <div class="sizer">Tamaño de letra
+      <button class="chip" id="fs-down" aria-label="Letra más pequeña">A−</button>
+      <button class="chip" id="fs-up" aria-label="Letra más grande">A+</button>
+    </div>
+  </section>
+
+  <section class="panel" aria-label="Utilería">
+    <h2>Mochila de utilería <small id="propcount">0 / 0</small></h2>
+    <ul class="props" id="props"></ul>
+    <div class="bar"><b id="propbar"></b></div>
+  </section>
+
+  <nav class="scenenav" id="nav" aria-label="Escenas"></nav>
+  <div id="script" style="display:flex;flex-direction:column;gap:26px"></div>
+
+  <div class="fin"><b>FIN</b><p>¡Dios los bendiga! Salen bailando.</p></div>
+</main>
+
+<div class="timer" role="region" aria-label="Cronómetro del show">
+  <div class="tprog" id="tprog"></div>
+  <div class="clock" id="clock">00:00</div>
+  <div class="tinfo">Deberían ir en:<span id="tscene">Escena 1 · ¡Nos inscribimos!</span></div>
+  <button class="tbtn" id="tgo">Iniciar</button>
+  <button class="tbtn ghost" id="treset" aria-label="Reiniciar cronómetro">↺</button>
+</div>
+
+<script>
+const PROPS=[
+"Mochila gigante","3 empanadas","Almohada","Chancleta","Despertador","Sartén","Rollo de papel higiénico",
+"2 zapatos de distinto color (Amanda)","Botella de agua (Leiry)","Pito","Reloj gigante de cartón","Cartel META (atrás dice CIELO)",
+"Horno de cartón","Torta fea / cruda","Torta bonita","Caja MIEDO","Caja TRISTEZA","Caja ¡LO QUIERO YA!",
+"Biblia grande","Papelito “reglas de la carrera”","2 cucharas","2 pelotas de ping-pong","Medallas de papel o dulces"];
+
+const S=[
+{t:"¡Nos inscribimos en una carrera!",m:2,l:[
+["d","Suena el pito desde afuera. Entran corriendo desesperadas. Leiry con botella de agua. Amanda arrastrando la mochila gigante, que pesa muchísimo."],
+["L","¡CORRE, AMANDA, CORRE!"],["A","¡¿PERO POR QUÉ CORRO?!"],["L","¡Porque tenemos una carrera!"],
+["A","¡¿UNA CARRERA?! ¡Ay, menos mal! Yo pensé que era una carrera universitaria y ya me estaba preocupando por las notas."],
+["L","¿Y por qué vienes con esa mochila tan grande?"],["A","¡Porque traigo todo lo necesario para sobrevivir!"],
+["L","¿Sobrevivir a qué?"],["A","¡A la vida, Leiry!"],["L","A ver, ¿qué traes?"],
+["d","Amanda abre la mochila y va sacando cosas una por una, cada vez más exagerada."],
+["A","Una almohada… por si me da sueño en la curva."],["L","¿Quién duerme en una carrera?"],
+["A","Yo, si la carrera es larga. (Saca un despertador.) Y este despertador, para que me levante si me duermo."],
+["L","¿Y eso? (señala la sartén)"],["A","Una sartén."],["L","¡¿Para qué una sartén?!"],["A","¡Por si en el camino me encuentro un huevo!"],
+["L","¡JAJAJA! ¿Y el papel higiénico?"],["A","(susurrando a los niños) Eso es por si me da miedo."],["L","¡AMANDA!"],
+["A","¡Y lo más importante…! (saca las empanadas con brillo) ¡TRES EMPANADAS!"],["L","¡¿TRES EMPANADAS?!"],
+["A","Una para mí, una para ti y una para emergencias."],["L","¿Y qué emergencia puede ser una empanada?"],
+["A","¡Que me dé hambre! Yo con hambre no corro… yo negocio."],["L","Bueno, pero esta carrera es importante. ¿Estás preparada?"],
+["A","¡Claro! Me puse mis zapatos deportivos."],["L","¡Pero tienes un zapato de cada color!"],["A","¡Eso se llama innovación!"],
+["L","¡Eso se llama salir de la casa sin mirarse los pies!"],
+["A","¡No! Es estrategia: si me pierdo, los niños me reconocen. ¿Verdad, niños?"],["N","¡SÍIIII!"]]},
+
+{t:"El examen de paciencia",m:2,l:[
+["L","Mira, Amanda, aquí dice (lee un papel): “Para correr esta carrera hay que tener… PACIENCIA”."],
+["A","¡¿PACIENCIA?! No, no, no. Yo vine a correr, no a tener paciencia."],["L","¡Precisamente de eso se trata!"],
+["A","Pero yo tengo paciencia. Muchísima. Toneladas."],
+["L","¿Ah, sí? Entonces vamos a hacer el examen de paciencia. (Saca el reloj gigante de cartón.) Tienes que quedarte callada cinco segundos."],
+["A","¡Fácil!"],["L","¡Ya!"],
+["d","Amanda se queda callada, pero hace caras exageradas: se infla, se pone roja, se tapa la boca, se mueve como si fuera a explotar."],
+["A","¿Ya?"],["L","Apenas van dos segundos."],["A","¡¿DOS?! ¡Se sintieron como tres horas! ¡Me salieron canas!"],["L","¡JAJAJA!"],
+["A","Ahora tú. Cinco segundos."],["L","Bueno. (Se queda quieta.)"],["A","¿Ya?"],["L","No."],["A","¿Ya?"],["L","No."],
+["A","(le hace cosquillas en la oreja con la chancleta) ¿Ya?"],["L","¡¡NO!!"],["A","¡Ay, qué paciencia tan bonita tienes!"],
+["L","¡Tú no ayudas!"],["A","¡Estoy poniendo a prueba tu paciencia!"],["L","¡Y yo estoy poniendo a prueba la mía contigo!"],
+["L","Niños, ¿ustedes sí tienen paciencia? ¡Vamos a ver! Todos van a ser estatuas cinco segundos. ¡Nadie se mueve! Uno… dos… tres… cuatro… cinco…"],
+["d","Amanda pasa entre los niños haciendo caras para hacerlos reír."],
+["L","¡Amanda, deja de hacerles caras!"],["A","¡Es entrenamiento avanzado!"]]},
+
+{t:"El calentamiento",m:2,l:[
+["L","Antes de correr hay que calentar. ¡Niños, todos de pie!"],["A","¡Yo dirijo el calentamiento! Soy entrenadora certificada."],
+["L","¿Certificada por quién?"],["A","Por mi mamá. Ella dice que yo corro muy rápido… cuando suena la campana del almuerzo."],
+["A","¡Ejercicio número uno: estiramos los brazos… (se estira) …como cuando uno se levanta un lunes! (bosteza exagerado)"],
+["A","¡Ejercicio número dos: movemos la cabeza como pollito! (hace de pollito, los niños imitan)"],
+["A","¡Ejercicio número tres: saltamos como canguro!"],["L","Muy bien, ¿y el cuatro?"],
+["A","¡Ejercicio número cuatro: nos sentamos a descansar porque ya hicimos mucho ejercicio!"],
+["L","¡Eso fueron treinta segundos!"],["A","¡Treinta segundos muy intensos!"],["d","Los niños se sientan."]]},
+
+{t:"¡Arranca la carrera!",m:2,l:[
+["L","¡Niños, vamos a imaginar que estamos corriendo una carrera!"],["A","¡Pero yo voy a ganar!"],["L","¿Y si no ganas?"],["A","¡Me quejo!"],
+["L","¿Y si alguien llega primero?"],["A","¡Le pregunto si hizo trampa!"],["L","¡AMANDA!"],
+["A","¡Bueno, bueno! Voy a ser paciente. (a los niños, bajito) Pero voy a ganar."],["L","¡A la cuenta de tres!"],
+["B","¡UNO… DOS… TRES!"],["d","Suena el pito. Corren en el mismo sitio, con mucha energía."],
+["A","¡VOY GANANDO!"],["L","¡Pero si estamos en el mismo lugar!"],["A","¡No importa! ¡Espiritualmente voy adelante!"],
+["L","(como locutora de fútbol) Y la payasa Amanda va por la derecha… ¡se acerca a la meta…!"],
+["d","Amanda corre hacia la META. Justo cuando va a llegar, Leiry mueve el cartel para el otro lado. Amanda corre para allá. Leiry lo vuelve a mover. Se repite 2–3 veces."],
+["A","¡LEIRY! ¡La meta se está moviendo!"],["L","¡Así se siente cuando uno quiere que todo pase YA!"],
+["A","¡Ahora entiendo! ¡Repetición en cámara lenta!"],
+["d","Repiten la carrera en cámara lenta, con voces lentas y caras exageradas: “¡Vooooy gaaaanaaandoooo!”"]]},
+
+{t:"Dios no es un microondas",m:2,l:[
+["L","Amanda, ¿sabes algo? A veces nosotros también queremos que todo pase rápido."],
+["A","¡Claro! Yo oro: “Señor, dame paciencia…” (pausa) “…¡PERO YA!”"],["L","¡JAJAJA! ¡Así no funciona!"],
+["A","¿Y qué pasa cuando uno pide paciencia?"],["L","¡Que te toca esperar!"],
+["A","¡Ahhh! Yo estaba pidiendo paciencia y Dios me inscribió en el curso intensivo."],
+["L","A veces sentimos que Dios se demora, pero Él sigue trabajando aunque no lo veamos. Dios no es un microondas."],
+["A","¡Es un horno! (Trae el horno de cartón.) Miren, niños: aquí tengo una torta. Yo la metí hace un rato. ¿La saco ya?"],
+["N","¡NOOO! / ¡SÍIII!"],
+["A","¡Yo no aguanto! ¡La saco! (Saca la torta fea.) ¡Aaay! ¡Quedó cruda!"],["L","¡Porque la sacaste antes de tiempo!"],
+["A","(la vuelve a meter) Bueno… voy a esperar. (Tararea, mira el reloj, silba, se impacienta.) ¿Ya, niños? ¡Contemos hasta diez!"],
+["N","¡UNO, DOS, TRES… DIEZ!"],["d","Amanda saca la torta bonita."],["A","¡TARÁÁÁ! ¡Ahora sí!"],
+["L","¡Eso es! La Biblia dice que todo tiene su tiempo (Eclesiastés 3:1). Cuando Dios termina algo, queda perfecto."],
+["A","¡Mira, yo también puedo dar enseñanzas profundas!"],["L","Profundísimas."],["A","¡Como una piscina!"],
+["L","Bueno… como un vaso de agua."],["A","¡No dañes mi momento espiritual!"]]},
+
+{t:"“Ya me cansé”",m:2,l:[
+["d","Amanda se tira al piso, dramática, con la almohada."],
+["A","Leiry… estoy cansada."],["L","Apenas llevamos un minuto."],["A","¡Un minuto demasiado largo! ¡Llamen a mi mamá! ¡Díganle que la quise mucho!"],
+["L","¡No exageres!"],["A","¿Podemos tomar un taxi?"],["L","¡NO!"],["A","¿Una bicicleta?"],["L","¡NO!"],["A","¿Un burro?"],["L","¡NO!"],
+["A","¿Un cohete de la NASA?"],["L","¡AMANDA!"],["A","¡Estoy buscando soluciones!"],
+["L","Hay momentos en que nos vamos a cansar y vamos a querer abandonar. Pero ahí es donde tenemos que perseverar."],
+["A","O sea… ¿seguir aunque esté cansada?"],["L","Sí."],["A","¿Aunque tenga hambre?"],["L","Sí."],["A","¿Aunque tenga sueño?"],["L","Sí."],
+["A","¿Aunque tú sigas hablando?"],["L","¡Sí!"],["A","¡Eso sí va a estar difícil!"],
+["L","Pero escucha esto: la Biblia dice que los que esperan en el Señor tendrán nuevas fuerzas; correrán y no se cansarán (Isaías 40:31)."],
+["A","(se levanta de golpe) ¡NUEVAS FUERZAS! ¡Siento las pilas recargadas! (como robot cargándose: “biiiiip, 100%”)"]]},
+
+{t:"Los obstáculos",m:2,l:[
+["d","Leiry pone las 3 cajas en fila en el escenario."],
+["L","Toda carrera tiene obstáculos."],["A","¡Como mi vida!"],["L","¡Exactamente!"],["A","¿Eso fue un cumplido?"],
+["L","No sé. Sigamos. (Señala la primera caja.) Primer obstáculo: MIEDO."],
+["A","(se esconde detrás de Leiry temblando) ¡Ay, no! ¡Tengo miedo del miedo!"],["L","¿Y qué hacemos con el miedo?"],
+["A","¿Le ponemos el papel higiénico? (saca el rollo)"],["L","¡NO! Oramos y confiamos en que Dios va con nosotros."],
+["A","(salta la caja de un brinco) ¡Superado!"],["L","Segundo obstáculo: TRISTEZA."],["A","(llora exagerado, como bebé) ¡Buaaaa!"],
+["L","Cuando estamos tristes, Dios nos consuela, y también tenemos amigos que nos ayudan."],
+["d","Leiry ayuda a Amanda a pasar la caja tomándola de la mano."],
+["A","¡Gracias, amiga! (abrazo exagerado que casi tumba a Leiry)"],["L","Y el tercer obstáculo, el más difícil: ¡LO QUIERO YA!"],
+["A","¡Ese es mi favorito! ¡Lo quiero ya, lo quiero ya, lo quiero YAAA! (pataleta en el piso)"],
+["L","¡Ese es el que más nos hace caer! Cuando queremos todo rápido y no sabemos esperar."],["A","¿Y cómo se pasa?"],
+["L","¡Con paciencia! Paso a pasito."],["d","Amanda pasa la caja en cámara súper lenta, de puntitas."],
+["A","¡Lo logré! ¡Y sin pataleta! Bueno… con media pataleta."]]},
+
+{t:"La Biblia es el mapa",m:2,l:[
+["A","Leiry, hay un problema. ¿Para dónde es la carrera? ¡Estoy perdida!"],["L","¿No trajiste el mapa?"],
+["A","(busca en la mochila) Traje sartén, almohada, empanadas… ¡pero mapa no!"],["L","(saca la Biblia grande) ¡Aquí está el mapa!"],
+["A","¿Eso es un mapa? ¡Eso es una Biblia!"],["L","¡Exacto! ¡Hoy es el Día de la Biblia, y la Biblia es el mapa de nuestra carrera de la fe!"],
+["A","¿Y tiene GPS? (con voz de GPS) “En cien metros, gire a la derecha…”"],
+["L","¡Mejor que un GPS! Nos dice cómo vivir, cómo amar y cómo tener paciencia. Escuchen Hebreos 12:1: “Corramos con paciencia la carrera que tenemos por delante.”"],
+["A","¡Espérate! ¡¿La Biblia sabía que íbamos a correr hoy?!"],["L","¡JAJAJA! La Biblia es para todos los días."],
+["A","Y la Biblia también tiene gente que tuvo que esperar mucho, ¿verdad?"],
+["L","¡Muchísimo! Abraham esperó veinticinco años para que naciera su hijo Isaac."],
+["A","¡¿VEINTICINCO AÑOS?! ¡Yo no espero ni veinticinco segundos el microondas!"],
+["L","Y José estuvo años en la cárcel sin haber hecho nada malo, pero Dios tenía un plan y lo convirtió en un gran líder de Egipto."],
+["A","¡O sea que mientras ellos esperaban, Dios estaba preparando algo!"],["L","¡Exactamente!"]]},
+
+{t:"La carrera de la cuchara",m:3,l:[
+["L","¡Ahora necesitamos dos voluntarios!"],["d","Escogen dos niños. A cada uno le dan una cuchara con una pelota de ping-pong."],
+["A","¡Reglas: tienen que llegar hasta la META sin que se caiga la pelota! Si se cae, vuelven a empezar."],
+["L","Yo voy a ayudar a este, y Amanda al otro."],["A","(a su niño, como entrenadora loca) ¡Corre rápido! ¡Rápido, rápido, rapidísimo!"],
+["L","(a su niño, tranquila) Despacito, con cuidado, sin afán."],
+["d","Corre la carrera. Al que va rápido normalmente se le cae la pelota. Amanda hace drama: “¡NOOOO!”, se arrodilla, se tapa la cara."],
+["L","¡Llegó primero el que fue con paciencia!"],["A","¡Pero eso no es justo, el mío iba más rápido!"],["L","¡Sí, pero llegó el que no se apresuró!"],
+["A","(pensativa) Mmm… o sea que correr rápido no sirve si se te cae lo importante en el camino."],["L","¡Esa sí fue profunda!"],
+["A","¡Como una piscina!"],["L","Esta vez sí te la acepto."],
+["d","Aplausos para los voluntarios. Se les da una medalla de papel o un dulce."],
+["tip","Si les sobra tiempo, repitan esta carrera con otros dos voluntarios."]]},
+
+{t:"¿Quién gana la carrera?",m:1,l:[
+["A","Leiry, ¿sabes quién gana esta carrera?"],["L","El que llega primero."],["A","¡INCORRECTO! (sonido de error: “¡Eeeeh!”)"],
+["L","¿Cómo que incorrecto?"],["A","¡Gana el que no se rinde!"],["L","¡Eso es! Puede que otro vaya más rápido que tú…"],
+["A","…y eso no significa que tú estés perdiendo."],["L","Cada uno tiene su propio camino. No estamos compitiendo con los demás."],
+["A","Porque si fuera por mí, yo ya tendría todo resuelto."],["L","¿Todo?"],["A","¡Todo!"],["L","¿Hasta qué vas a desayunar mañana?"],
+["A","¡Eso sí no lo sé!"],["L","Entonces no tienes todo resuelto."],["A","¡Bueno, pero estoy avanzando!"]]},
+
+{t:"Dinámica con los niños",m:2,l:[
+["L","Niños, vamos a practicar. Cuando Amanda diga “¡ME CANSÉ!”, ustedes gritan: “¡SIGUE!”"],
+["A","Y cuando Leiry diga “¡NO PUEDO!”, ustedes gritan: “¡DIOS ME AYUDA!”"],
+["A","¡Y cuando alguna diga “¡LO QUIERO YA!”, ustedes dicen: “¡TEN PACIENCIA!”"],
+["A","¡ME CANSÉ!"],["N","¡SIGUE!"],["L","¡NO PUEDO!"],["N","¡DIOS ME AYUDA!"],["A","¡LO QUIERO YA!"],["N","¡TEN PACIENCIA!"],
+["L","(más rápido) ¡ME CANSÉ!"],["N","¡SIGUE!"],["A","(muy rápido) ¡NO PUEDO! ¡LO QUIERO YA! ¡ME CANSÉ!"],["d","Los niños se enredan. Risas."],
+["A","¡QUIERO UNA EMPANADA!"],["d","Los niños responden lo que se les ocurra."],["L","¡Eso ya es problema de Amanda!"],
+["L","Ahora vamos a aprender el versículo. Repitan conmigo: “Corramos… con paciencia… la carrera… que tenemos por delante… Hebreos 12:1.”"],
+["N","¡Corramos con paciencia la carrera que tenemos por delante!"],
+["A","¡Ahora en voz bajita, como ratoncitos!"],["A","¡Ahora como gigantes! (voz gruesa)"],["A","¡Ahora como payasas! (voz chistosa)"]]},
+
+{t:"El mensaje final",m:2,l:[
+["d","Música suave. Se ponen serias, pero con cariño."],
+["L","Niños, la vida es como una carrera."],["A","Y no siempre vamos a ir rápido."],["L","Habrá días felices…"],
+["A","…y otros en los que vamos a decir: “¡Señor, ya no puedo más!”"],["L","Pero Dios nos enseña a esperar."],["A","A confiar."],
+["L","A seguir caminando."],["A","Y a no rendirnos."],["L","Porque aunque no veamos lo que está pasando…"],
+["A","…Dios sí está trabajando. Como la torta en el horno."],["L","Así que si hoy estás esperando algo…"],["A","¡Ten paciencia!"],
+["L","Si estás pasando por algo difícil…"],["A","¡No te rindas!"],["L","Y si sientes que vas muy lento…"],["A","¡Recuerda que tu carrera es tuya!"],
+["L","¡Y Dios va contigo!"],["d","Leiry voltea el cartel de META y por detrás dice CIELO."],
+["L","Y esta es la meta más importante de todas: llegar a los brazos de Jesús."],["A","¡Y ahí sí hay refrigerio eterno!"]]},
+
+{t:"El final",m:1,l:[
+["A","Bueno, Leiry, después de todo esto… ¿ganamos la carrera?"],["L","Sí."],["A","¿Llegamos de primeras?"],["L","No."],
+["A","¿De segundas?"],["L","Tampoco."],["A","¿Entonces?"],["L","¡Ni siquiera salimos del lugar!"],
+["d","Las dos se miran. Silencio. Miran a los niños."],
+["A","¡CORRE!"],["L","¡¿PARA DÓNDE?!"],["A","¡NO SÉ, PERO CORRE!"],
+["d","Corren por todo el escenario. Amanda va dejando caer cosas de la mochila: la chancleta, el despertador, la sartén."],
+["L","¡AMANDA, ESPERA!"],["A","¡NO PUEDO, ESTOY PERSEVERANDO!"],["L","¡PERO LA PACIENCIA TAMBIÉN ES ESPERAR!"],["A","¡ENTONCES ESPÉRAME TÚ!"],
+["d","Se chocan en el centro y quedan en una pose exagerada."],
+["B","¡DIOS LOS BENDIGA!"],["L","¡Y recuerden…!"],["A","¡Paciencia!"],["L","¡Perseverancia!"],["A","¡Y confianza en Dios!"],
+["L","Y si ven una empanada…"],["A","¡NO!"],["L","¡Compártanla!"],
+["A","(mira la empanada, mira a los niños, suspira) …Bueno. ¡Eso sí lo estoy aprendiendo! (le da la empanada a un niño o a la pastora)"],
+["d","Salen bailando."]]}
+];
+
+const WHO={L:"Leiry",A:"Amanda",N:"Niños",B:"Ambas"};
+const esc=s=>s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const fmt=s=>esc(s).replace(/\(([^)]+)\)/g,"<em>($1)</em>");
+const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* escenas */
+const nav=document.getElementById("nav"),wrap=document.getElementById("script");
+let html="",navh="",acc=0;const starts=[];
+S.forEach((s,i)=>{
+  starts.push(acc);acc+=s.m;
+  const n=i+1;
+  navh+=`<a class="navchip" href="#e${n}" data-i="${i}" aria-label="Escena ${n}: ${esc(s.t)}">${n}</a>`;
+  html+=`<section class="scene s${i%5}" id="e${n}"><div class="shead"><div class="num">${n}</div><div><h2>${esc(s.t)}</h2><span class="t">≈ ${s.m} min</span></div></div><div class="lines">`;
+  s.l.forEach(([w,t])=>{
+    if(w==="d")html+=`<div class="dir">${esc(t)}</div>`;
+    else if(w==="tip")html+=`<div class="tip"><strong>Tip:</strong> ${esc(t)}</div>`;
+    else html+=`<div class="ln ${w}"><span class="who">${WHO[w]}</span><div class="b">${fmt(t)}</div></div>`;
+  });
+  html+=`</div></section>`;
+});
+const TOTAL=acc;
+nav.innerHTML=navh;wrap.innerHTML=html;
+
+/* nav activa */
+const chips=[...nav.children];
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=+e.target.id.slice(1)-1;chips.forEach((c,j)=>c.classList.toggle("on",j===i));chips[i].scrollIntoView({block:"nearest",inline:"center"})}}),{rootMargin:"-40% 0px -55% 0px"});
+document.querySelectorAll(".scene").forEach(s=>io.observe(s));
+
+/* utilería */
+const ul=document.getElementById("props");
+let got=store.get("props")||[];
+ul.innerHTML=PROPS.map((p,i)=>`<li class="prop"><label for="p${i}"><input type="checkbox" id="p${i}" ${got.includes(i)?"checked":""}><span>${esc(p)}</span></label></li>`).join("");
+function upd(){got=[...ul.querySelectorAll("input")].map((x,i)=>x.checked?i:-1).filter(i=>i>=0);store.set("props",got);
+  document.getElementById("propcount").textContent=`${got.length} / ${PROPS.length}`;
+  document.getElementById("propbar").style.width=(got.length/PROPS.length*100)+"%"}
+ul.addEventListener("change",upd);upd();
+
+/* modo ensayo */
+const fbtns=document.querySelectorAll("[data-f]");
+function setF(f){document.body.classList.remove("f-L","f-A");if(f)document.body.classList.add("f-"+f);fbtns.forEach(b=>b.setAttribute("aria-pressed",b.dataset.f===f));store.set("f",f)}
+fbtns.forEach(b=>b.addEventListener("click",()=>setF(b.dataset.f)));setF(store.get("f")||"");
+let fs=store.get("fs")||17;
+function setFs(v){fs=Math.min(24,Math.max(14,v));document.documentElement.style.setProperty("--fs",fs+"px");store.set("fs",fs)}
+document.getElementById("fs-up").onclick=()=>setFs(fs+1);document.getElementById("fs-down").onclick=()=>setFs(fs-1);setFs(fs);
+
+/* cronómetro */
+let run=false,t0=0,el=0,raf,lock=null;
+const clock=document.getElementById("clock"),tsc=document.getElementById("tscene"),go=document.getElementById("tgo"),pr=document.getElementById("tprog");
+function draw(){const ms=run?el+Date.now()-t0:el,sec=Math.floor(ms/1000),min=sec/60;
+  clock.textContent=String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0");
+  let i=0;starts.forEach((s,j)=>{if(min>=s)i=j});
+  tsc.textContent=min>=TOTAL?"¡Se acabó el tiempo! A cerrar":`Escena ${i+1} · ${S[i].t}`;
+  pr.style.width=Math.min(100,min/TOTAL*100)+"%";
+  if(run)raf=requestAnimationFrame(draw)}
+go.onclick=async()=>{if(run){el+=Date.now()-t0;run=false;go.textContent="Seguir";cancelAnimationFrame(raf);try{lock&&lock.release();lock=null}catch(e){}}
+  else{t0=Date.now();run=true;go.textContent="Pausa";draw();try{lock=await navigator.wakeLock.request("screen")}catch(e){}}};
+document.getElementById("treset").onclick=()=>{run=false;el=0;go.textContent="Iniciar";cancelAnimationFrame(raf);draw()};
+draw();
+</script>
+
+</body></html>
