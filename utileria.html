@@ -128,19 +128,21 @@ h2{margin:0;font-family:var(--display);font-weight:400;font-size:1.2rem;line-hei
 const ITEMS=[
  {name:'Cartel META (frente)',file:'01-cartel-meta.png',qty:1,scene:'Escenas 4 y 12',how:'Imprímelo junto con el cartel CIELO y pégalos espalda con espalda sobre cartón. Ponle un palo para que Leiry pueda moverlo.'},
  {name:'Cartel CIELO (reverso)',file:'02-cartel-cielo.png',qty:1,scene:'Escena 12',how:'Va detrás del cartel META. Leiry lo voltea durante el mensaje final.'},
- {name:'Obstáculo: MIEDO',file:'03-miedo.png',qty:1,scene:'Escena 7',how:'Pégalo en la primera de las tres cajas de cartón.'},
- {name:'Obstáculo: TRISTEZA',file:'04-tristeza.png',qty:1,scene:'Escena 7',how:'Pégalo en la segunda caja de cartón.'},
- {name:'Obstáculo: ¡LO QUIERO YA!',file:'05-lo-quiero-ya.png',qty:1,scene:'Escena 7',how:'Pégalo en la tercera caja. Es el obstáculo más difícil.'},
- {name:'Reglas para la carrera',file:'06-reglas-para-la-carrera.png',qty:2,scene:'Escena 2',how:'Una copia para cada payasa, con el orden de las 13 escenas del show.'},
- {name:'Reloj gigante',file:'07-reloj.png',qty:1,scene:'Escena 2',how:'Pégalo sobre cartón y recórtalo por el borde para el examen de paciencia.'},
- {name:'Microondas',file:'08-microondas.jpg',qty:1,scene:'Escena 5',how:'Pégalo al frente de una caja y deja una abertura atrás para meter y sacar las tortas.'},
+ {name:'Obstáculo: MIEDO',file:'03-obstaculo-miedo.png',qty:1,scene:'Escena 7',how:'Pégalo en la primera de las tres cajas de cartón.'},
+ {name:'Obstáculo: TRISTEZA',file:'04-obstaculo-tristeza.png',qty:1,scene:'Escena 7',how:'Pégalo en la segunda caja de cartón.'},
+ {name:'Obstáculo: ¡LO QUIERO YA!',file:'05-obstaculo-lo-quiero-ya.png',qty:1,scene:'Escena 7',how:'Pégalo en la tercera caja. Es el obstáculo más difícil.'},
+ {name:'Reglas para la carrera',file:'06-reglas-de-la-carrera.png',qty:2,scene:'Escena 2',how:'Una copia para cada payasa, con el orden de las 13 escenas del show.'},
+ {name:'Reloj gigante',file:'07-reloj-gigante.png',qty:1,scene:'Escena 2',how:'Pégalo sobre cartón y recórtalo por el borde para el examen de paciencia.'},
+ {name:'Microondas',file:'08-frente-del-horno.jpg',qty:1,scene:'Escena 5',how:'Pégalo al frente de una caja y deja una abertura atrás para meter y sacar las tortas.'},
  {name:'Torta cruda',file:'09-torta-cruda.jpg',qty:1,scene:'Escena 5',how:'Pégala sobre cartón. Es la que Amanda saca antes de tiempo.'},
  {name:'Torta lista',file:'10-torta-lista.jpg',qty:1,scene:'Escena 5',how:'Pégala sobre cartón. Es la que sale cuando los niños cuentan hasta diez.'},
- {name:'Medalla La carrera de la Fe',file:'11-medalla.jpg',qty:2,scene:'Escena 9',how:'Una para cada voluntario de la carrera de la cuchara. Recórtalas y pégales una cinta para colgarlas.'}
+ {name:'Medalla La carrera de la Fe',file:'11-medallas.jpg',qty:2,scene:'Escena 9',how:'Una para cada voluntario de la carrera de la cuchara. Recórtalas y pégales una cinta para colgarlas.'}
 ];
-const DIR='imagenes/',MINI='imagenes/mini/';
-const mini=f=>MINI+f.replace(/\.(png|jpg)$/,'.jpg');
-
+/* La página busca cada imagen primero en la carpeta "imagenes" y, si no está, junto a este archivo. */
+const DIRS=['imagenes/',''];
+const where={};
+function load(img,it,list,done){let k=0;const next=()=>{if(k>=list.length){done&&done(null);return}const src=list[k++];img.onerror=next;img.onload=()=>{img.onerror=img.onload=null;done&&done(src)};img.src=src};next()}
+const fulls=it=>where[it.file]?[where[it.file]]:DIRS.map(d=>d+it.file);
 const $=id=>document.getElementById(id);
 const view=$('view'),thumbs=$('thumbs');
 let cur=0;try{const s=+localStorage.getItem('imp-cur2');if(s>=0&&s<ITEMS.length)cur=s}catch(e){}
@@ -150,20 +152,21 @@ $('badge').innerHTML=`${ITEMS.length} imágenes<br>${total} copias`;
 
 ITEMS.forEach((it,i)=>{const b=document.createElement('button');b.type='button';b.className='thumb';
   b.setAttribute('aria-label',`${i+1}. ${it.name}, ${it.qty} ${it.qty>1?'copias':'copia'}`);
-  b.innerHTML=`<span class="n">${i+1}</span><img src="${mini(it.file)}" alt="" loading="lazy">${it.qty>1?`<span class="x">×${it.qty}</span>`:''}`;
-  b.onclick=()=>select(i);thumbs.appendChild(b)});
+  b.innerHTML=`<span class="n">${i+1}</span><img alt="">${it.qty>1?`<span class="x">×${it.qty}</span>`:''}`;
+  b.onclick=()=>select(i);thumbs.appendChild(b);
+  load(b.querySelector('img'),it,fulls(it),src=>{if(src)where[it.file]=src})});
 
 function select(i){cur=(i+ITEMS.length)%ITEMS.length;try{localStorage.setItem('imp-cur2',cur)}catch(e){}const it=ITEMS[cur];
   $('idx').textContent=String(cur+1).padStart(2,'0');$('name').textContent=it.name;$('scene').textContent=it.scene;$('how').textContent=it.how;
   $('qtyn').textContent=it.qty;$('qtyt').textContent=it.qty>1?'copias':'copia';$('qty').classList.toggle('two',it.qty>1);
-  const dl=$('dl');dl.href=DIR+it.file;dl.setAttribute('download',it.file);
-  view.classList.add('fade');const im=new Image();im.onload=im.onerror=()=>{view.src=im.src;view.alt=it.name;view.classList.remove('fade')};im.src=DIR+it.file;
+  const dl=$('dl');dl.href=fulls(it)[0];dl.setAttribute('download',it.file);
+  view.classList.add('fade');const im=new Image();load(im,it,fulls(it),src=>{if(src){where[it.file]=src;dl.href=src;view.src=src}view.alt=it.name;view.classList.remove('fade')});
   [...thumbs.children].forEach((t,j)=>{t.classList.toggle('on',j===cur);t.setAttribute('aria-current',j===cur?'true':'false')});
   thumbs.children[cur].scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'})}
 
 function toast(msg,ms=2400){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('show'),ms)}
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
-function save(it){const a=document.createElement('a');a.href=DIR+it.file;a.download=it.file;document.body.appendChild(a);a.click();a.remove()}
+function save(it){const a=document.createElement('a');a.href=fulls(it)[0];a.download=it.file;document.body.appendChild(a);a.click();a.remove()}
 
 $('dl').addEventListener('click',()=>toast(`Descargando: ${ITEMS[cur].name}`));
 $('dlall').onclick=async()=>{const btn=$('dlall'),sp=btn.querySelector('span');btn.disabled=true;
