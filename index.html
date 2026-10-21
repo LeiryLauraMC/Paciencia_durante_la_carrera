@@ -1,4 +1,3 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>¡Corre, pero con paciencia!</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -69,6 +68,13 @@ main{max-width:560px;margin:0 auto;padding-inline:16px;padding-block:6px 120px;d
 .prop input:checked ~ span{text-decoration:line-through;color:var(--muted)}
 .bar{height:10px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:10px}
 .bar b{display:block;height:100%;width:0;background:repeating-linear-gradient(45deg,var(--ninos) 0 8px,var(--leiry) 8px 16px);transition:width .3s}
+
+.printlink{display:flex;align-items:center;gap:12px;margin-top:12px;padding:12px 14px;border:3px solid var(--ink);border-radius:16px;background:var(--leiry);color:#fff;text-decoration:none;font-weight:900;font-size:1rem;line-height:1.2;box-shadow:3px 3px 0 var(--ink)}
+.printlink svg{flex:none;width:28px;height:28px}
+.printlink span{display:flex;flex-direction:column;min-width:0}
+.printlink small{font-weight:700;font-size:.78rem;opacity:.92;margin-top:2px}
+.printlink:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.printlink:focus-visible{outline:3px solid var(--ambas);outline-offset:2px}
 
 /* ---------- nav escenas ---------- */
 .scenenav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);margin-inline:-16px;padding:10px 16px;border-bottom:2px dashed var(--line);display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
@@ -168,12 +174,16 @@ body.f-L .ln.L .b,body.f-A .ln.A .b{box-shadow:3px 3px 0 var(--ink)}
     <h2>Mochila de utilería <small id="propcount">0 / 0</small></h2>
     <ul class="props" id="props"></ul>
     <div class="bar"><b id="propbar"></b></div>
+    <a class="printlink" href="https://leirylauramc.github.io/Paciencia_durante_la_carrera/utileria.html" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/></svg>
+      <span>Ver imágenes para imprimir<small>Carteles, reloj, microondas, tortas y medallas</small></span>
+    </a>
   </section>
 
   <nav class="scenenav" id="nav" aria-label="Escenas"></nav>
   <div id="script" style="display:flex;flex-direction:column;gap:26px"></div>
 
-  <div class="fin"><b>FIN</b><p>¡Dios los bendiga!</p></div>
+  <div class="fin"><b>FIN</b><p>¡Dios los bendiga! Salen bailando.</p></div>
 </main>
 
 <div class="timer" role="region" aria-label="Cronómetro del show">
@@ -350,7 +360,7 @@ const S=[
 ["d","Se chocan en el centro y quedan en una pose exagerada."],
 ["B","¡DIOS LOS BENDIGA!"],["L","¡Y recuerden…!"],["A","¡Paciencia!"],["L","¡Perseverancia!"],["A","¡Y confianza en Dios!"],
 ["L","Y si ven una empanada…"],["A","¡NO!"],["L","¡Compártanla!"],
-["A","(Mira la empanada, mira a los niños, suspira) …Bueno. ¡Eso sí lo estoy aprendiendo! (le da la empanada a un niño o a la pastora)"],
+["A","(mira la empanada, mira a los niños, suspira) …Bueno. ¡Eso sí lo estoy aprendiendo! (le da la empanada a un niño o a la pastora)"],
 ["d","Salen bailando."]]}
 ];
 
@@ -413,5 +423,3 @@ go.onclick=async()=>{if(run){el+=Date.now()-t0;run=false;go.textContent="Seguir"
 document.getElementById("treset").onclick=()=>{run=false;el=0;go.textContent="Iniciar";cancelAnimationFrame(raf);draw()};
 draw();
 </script>
-
-</body></html>
