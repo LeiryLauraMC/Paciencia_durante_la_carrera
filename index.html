@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>¡Corre, pero con paciencia!</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -136,6 +141,14 @@ body.f-L .ln.L .b,body.f-A .ln.A .b{box-shadow:3px 3px 0 var(--ink)}
 }
 @media (max-width:380px){.props{grid-template-columns:1fr}}
 </style>
+<style>
+html{-webkit-text-size-adjust:100%}
+body{margin:0;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
 
 <header class="tent">
   <div class="bunting" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
@@ -423,3 +436,6 @@ go.onclick=async()=>{if(run){el+=Date.now()-t0;run=false;go.textContent="Seguir"
 document.getElementById("treset").onclick=()=>{run=false;el=0;go.textContent="Iniciar";cancelAnimationFrame(raf);draw()};
 draw();
 </script>
+
+</body>
+</html>
